@@ -97,8 +97,8 @@
    
         switch (itemId) {
         case 1:
-        blocking = 15;
-        price = 5;
+        blocking = 1;
+        price = 15;
         aName = "Light 🛡️";
         break;
                 
