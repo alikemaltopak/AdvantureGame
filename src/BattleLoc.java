@@ -19,7 +19,7 @@ public abstract class BattleLoc extends Location{
         selCase = selCase.toUpperCase();
 
         if (selCase.equals("F")) {
-            if (combat(obsCount)){
+            if (combat(obsCount) && obstacle.getHealthy() == 0){
               System.out.println("Congratulations! You cleared all the monsters in the " + this.getName());
               if(this.item.equals("Firewood 🪵") && player.getInv().isFirewood() == false){
                 System.out.println("You get a " + this.item);
@@ -32,8 +32,10 @@ public abstract class BattleLoc extends Location{
                 player.getInv().setWater(true);
               }
             return true;
-        }else{
-            return false;  
+        }else if(obstacle.getHealthy() > 0 && player.getHealthy() > 0){
+                return true;
+            }else{
+                return false;
             }
             
         }
@@ -47,10 +49,8 @@ public abstract class BattleLoc extends Location{
             enemyStats();
         
         while(obstacle.getHealthy() > 0 && player.getHealthy() > 0){
-            System.out.println("<H>Hit or <R>Run :");
-            String selCase = scan.nextLine();
-            selCase = selCase.toUpperCase();
-            if (selCase.equals("H")) {
+            String selCase2 = selCase2();
+            if (selCase2.equals("H")) {
                 System.out.println("⚔️ ⚔️ ⚔️");
                 obstacle.setHealthy(obstacle.getHealthy()-player.totalDamage());
                 afterHit();
@@ -59,23 +59,29 @@ public abstract class BattleLoc extends Location{
                 player.setHealthy(player.getHealthy() - (obstacle.getDamage() - player.getInv().getArmor()));
                 afterHit();    
                 }
+            }else if (selCase2.equals("R")){
+                return true;
             }else{
                 break;
             }
+            
         }
             if(obstacle.getHealthy() <= 0 && player.getHealthy() > 0){
                 System.out.println("You kill the " + obstacle.getName());
                 player.setMoney(player.getMoney() + obstacle.getAward());
                 System.out.println("You earn " + obstacle.getAward() + " Money\t New Money : " + player.getMoney());
-                obstacle.setHealthy(defObsHealth);
+                if (i == obsCount -1){
+                    obstacle.setHealthy(0);
+                }else{
+                    obstacle.setHealthy(defObsHealth);
+                }
+                
             }else{
                 return false;
             }
         }
         return true;
     }
- 
-    
 
     public void playerStats(){
         System.out.println("Character : " + player.getcName() + "\tHelathy ❤️ : " + player.getHealthy() + 
@@ -88,6 +94,12 @@ public abstract class BattleLoc extends Location{
     public void afterHit(){
         System.out.println("Your Health : " +  player.getHealthy());
         System.out.println(obstacle.getName() + " Health : " + obstacle.getHealthy());
+
+    }public String selCase2(){
+        System.out.println("<H>Hit or <R>Run :");
+            String selCase2 = scan.nextLine();
+            selCase2 = selCase2.toUpperCase();
+            return selCase2;
 
     }
 

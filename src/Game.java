@@ -48,7 +48,15 @@ public class Game {
             location = new ToolStore(player);
             break;
         }
+
+        if (location.getClass().getName().equals("SafeHouse")){
+            if (player.getInv().isFirewood() && player.getInv().isFood() && player.getInv().isWater()){
+                System.out.println("🎉 🎉 🎉 You Won the Advanture Game 🎉 🎉 🎉");
+                break;
+            }
+        }
         if(!location.getLocation()){
+            System.out.println("You Died !!!");
             System.out.println("Game Over...");
             break;
         }
