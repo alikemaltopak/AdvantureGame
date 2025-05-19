@@ -26,7 +26,7 @@ public class Player {
         System.out.println("Character " + getcName() +  " Created  Damage: " + getDamage() + " , Healthy: " + getHealthy() + " , Money . " + getMoney());
     }
     public int charMenu(){
-        System.out.println(" Please select a character " + name + ":");
+        System.out.println(" Please select your character " + name + ":");
         System.out.println(" 1- Character : Samurai 🥷🏻\tDamage : 5\tHealthy : 21\tMoney : 15");
         System.out.println(" 2- Character : Archer 🏹\tDamage : 7\tHealthy : 18\tMoney : 20");
         System.out.println(" 3- Character : Knight 🗡️\tDamage : 8\tHealthy : 24\tMoney : 5");  
